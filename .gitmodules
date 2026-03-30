@@ -1,0 +1,3 @@
+[submodule "northstar-android"]
+	path = northstar-android
+	url = git@github.com:Walkbase/northstar-android.git
