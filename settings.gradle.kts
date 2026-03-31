@@ -24,4 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Northstar Demo"
 include(":app")
- 
+includeBuild("northstar-android")
