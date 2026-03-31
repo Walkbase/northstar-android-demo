@@ -9,8 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.walkbase.northstar.NorthstarViewModel
 import com.walkbase.northstardemo.ui.theme.NorthstarDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,10 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NorthstarDemoTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    Greeting(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -31,9 +32,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(modifier: Modifier = Modifier, northstarViewModel: NorthstarViewModel = viewModel()) {
+    val northstarUiState by northstarViewModel.uiState.collectAsState()
     Text(
-        text = "Hello $name!",
+        text = "Position: ${northstarUiState.position}",
         modifier = modifier
     )
 }
@@ -42,6 +44,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     NorthstarDemoTheme {
-        Greeting("Android")
+        Greeting()
     }
 }
